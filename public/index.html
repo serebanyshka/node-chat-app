@@ -7,14 +7,14 @@
   </head>
   <body>
     <p>Welcome to the chat app</p>
-    <script>
-      const socket = io();
-      socket.on('connect', () => {
-        console.log('Connected to the server');
-      });
-      socket.on('disconnect', () => {
-        console.log('Disconnected from server');
-      });
-    </script>
+    <div>
+      <form id="message-form">
+        <textarea id="chat" rows="10" cols="50"></textarea>
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="new-message" placeholder="New message" required>
+        <button type="submit" id="send-btn">Send</button>
+      </form>
+    </div>
+    <script src="/js/index.js"></script>
   </body>
 </html>
