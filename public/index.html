@@ -3,15 +3,16 @@
   <head>
     <meta charset="utf-8">
     <title>Node chat app</title>
+    <link rel="stylesheet" href="/css/style.css"></link>
     <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
     <p>Welcome to the chat app</p>
-    <div>
+    <div class="wrapper-chat">
       <form id="message-form">
         <textarea id="chat" rows="10" cols="50"></textarea>
-        <input type="text" id="name" placeholder="Name" required>
-        <input type="text" id="new-message" placeholder="New message" required>
+        <input type="text" id="name" name="from" placeholder="Name" required />
+        <input type="text" id="new-message" name="message" placeholder="New message" required />
         <button type="submit" id="send-btn">Send</button>
       </form>
     </div>

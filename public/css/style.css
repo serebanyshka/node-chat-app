@@ -1,0 +1,14 @@
+.wrapper-chat {
+  width: 50%;
+  margin-left: 10px;
+  border: 1px solid gray;
+  padding: 10px;
+}
+input, textarea {
+  width: 98%;
+  margin-bottom: 5px;
+}
+
+textarea {
+  resize: none;
+}

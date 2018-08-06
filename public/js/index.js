@@ -30,5 +30,5 @@ function sendMessage(e) {
   socket.emit('createMessage', {
     from: name.value ,
     text: message.value
-  });
+  }, res => console.log(res));
 }
