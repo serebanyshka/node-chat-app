@@ -22,14 +22,14 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (message, callback) => {
     //event for everybody
-    io.emit('newMessage', generateMessage(message.from, message.text));
-    callback('This is from the server');
+    io.emit('newMessage', generateMessage('User', message.text));
+    callback(); //to send result back
     // socket.broadcast.emit('newMessage', generateMessage(message.from, message.text));
   });
 
   socket.on('createLocationMessage', (message) => {
     io.emit('newLocationMessage',
-      generateLocationMessage(message.from, message.latitude, message.longitude));
+      generateLocationMessage('User', message.latitude, message.longitude));
   });
 
   socket.on('disconnect', () => {
