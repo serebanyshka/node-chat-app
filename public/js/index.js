@@ -19,11 +19,13 @@
     });
 
     socket.on('newMessage', message => {
-      chat.insertAdjacentHTML('beforeend',`<p>${message.from}: ${message.text}</p>`);
+      chat.insertAdjacentHTML('beforeend',
+        `<p>${message.from}: ${message.text} ${formatTime(message.createdAt)}</p>`);
     });
 
     socket.on('newLocationMessage', message => {
-      chat.insertAdjacentHTML('beforeend', `<p>${message.from}: <a href="${message.url}" target="_blank">My current location</a></p>`);
+      chat.insertAdjacentHTML('beforeend',
+        `<p>${message.from}: <a href="${message.url}" target="_blank">My current location</a> ${formatTime(message.createdAt)}</p>`);
     });
   }
 
@@ -58,5 +60,9 @@
     }, () =>{ //callback function to clear input after send message
       message.value = '';
     });
+  }
+
+  function formatTime(time) {
+     return moment(time).format('MMM Do YYYY, hh:mm:ss a');
   }
 })();
