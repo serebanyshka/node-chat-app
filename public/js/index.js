@@ -20,10 +20,12 @@
 
     socket.on('newMessage', message => {
       chat.insertAdjacentHTML('beforeend', makeTemplateMsg(message));
+      chat.scrollIntoView(false);
     });
 
     socket.on('newLocationMessage', message => {
       chat.insertAdjacentHTML('beforeend', makeTemplateLocMsg(message));
+      chat.scrollIntoView(false);
     });
   }
 

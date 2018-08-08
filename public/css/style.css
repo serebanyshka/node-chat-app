@@ -120,7 +120,7 @@ button:disabled {
   width: 100%;
 }
 
-.chat__messages {
+.auto__scroll {
   flex-grow: 1;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;

@@ -13,13 +13,15 @@
       <div id="users"></div>
     </div>
     <div class="chat__main">
-      <div id="chat" class="chat__messages"></div>
+      <div class="auto__scroll">
+        <div id="chat" class="chat__messages"></div>
+      </div>
       <div class="chat__footer">
         <form id="message-form">
           <input type="text" id="new-message" name="message" placeholder="New message" autofocus autocomplete="off"/>
           <button type="submit" id="send-btn">Send</button>
-          <button type="button" id="location-btn">Location</button>
         </form>
+        <button type="button" id="location-btn">Location</button>
       </div>
     </div>
     <script src="/js/index.js"></script>
