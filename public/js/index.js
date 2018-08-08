@@ -19,13 +19,11 @@
     });
 
     socket.on('newMessage', message => {
-      chat.insertAdjacentHTML('beforeend',
-        `<p>${message.from}: ${message.text} ${formatTime(message.createdAt)}</p>`);
+      chat.insertAdjacentHTML('beforeend', makeTemplateMsg(message));
     });
 
     socket.on('newLocationMessage', message => {
-      chat.insertAdjacentHTML('beforeend',
-        `<p>${message.from}: <a href="${message.url}" target="_blank">My current location</a> ${formatTime(message.createdAt)}</p>`);
+      chat.insertAdjacentHTML('beforeend', makeTemplateLocMsg(message));
     });
   }
 
@@ -63,6 +61,24 @@
   }
 
   function formatTime(time) {
-     return moment(time).format('MMM Do YYYY, hh:mm:ss a');
+    return moment(time).format('h:mm a');
+  }
+
+  function makeTemplateMsg(message) {
+    return `<p class="message">
+        <div class="message__title">
+          <h4>${message.from}</h4>
+          <span>${formatTime(message.createdAt)}</span>
+        </div>
+        <div class="message__body">
+          <p>${message.text}</p>
+        </div>
+      </p>`;
+  }
+
+  function makeTemplateLocMsg(message) {
+    let newMessage = Object.assign({}, message);
+    newMessage.text = `<a href="${message.url}" target="_blank">My current location</a>`;
+    return makeTemplateMsg(newMessage);
   }
 })();
