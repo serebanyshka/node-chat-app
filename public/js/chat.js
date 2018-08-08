@@ -1,9 +1,10 @@
 (function() {
   const socket = io();
-  const sendBtn = document.querySelector('#message-form');
-  const message = document.querySelector('#new-message');
-  const chat = document.querySelector('#chat');
-  const locationBtn = document.querySelector('#location-btn');
+  const sendBtn = document.getElementById('message-form');
+  const message = document.getElementById('new-message');
+  const chat = document.getElementById('chat');
+  const locationBtn = document.getElementById('location-btn');
+  const usersDIV = document.getElementById('users');
 
   init();
   function init() {
@@ -11,11 +12,25 @@
     locationBtn.addEventListener('click', sendLocation);
 
     socket.on('connect', () => {
-      console.log('Connected to the server');
+      const params = window.deparam(window.location.search);
+
+      socket.emit('join', params, err => {
+        //callback
+        if(err) {
+          alert(err);
+          window.location.href ='/';
+        } else {
+          console.log('OK');
+        }
+      });
    });
 
     socket.on('disconnect', () => {
       console.log('Disconnected from server');
+    });
+
+    socket.on('updateUserList', (users) => {
+      updateUserList(users);
     });
 
     socket.on('newMessage', message => {
@@ -82,5 +97,13 @@
     let newMessage = Object.assign({}, message);
     newMessage.text = `<a href="${message.url}" target="_blank">My current location</a>`;
     return makeTemplateMsg(newMessage);
+  }
+
+  function updateUserList(users) {
+    usersDIV.innerHTML = '';
+    const  list = `<ul>
+        ${users.map(user => `<li>${user}</li>`).join('')}
+      </ul>`;
+    usersDIV.insertAdjacentHTML('beforeend', list);
   }
 })();
