@@ -24,9 +24,21 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (message, callback) => {
     //event for everybody
-    io.emit('newMessage', generateMessage('User', message.text));
-    callback(); //to send result back
-    // socket.broadcast.emit('newMessage', generateMessage(message.from, message.text));
+    const user = users.getUser(socket.id);
+    if(user && isRealString(message.text)) {
+      io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+    }
+    callback();
+  });
+
+  socket.on('createLocationMessage', (message) => {
+    const user = users.getUser(socket.id);
+    if(user) {
+      io.to(user.room).emit(
+        'newLocationMessage',
+         generateLocationMessage(user.name, message.latitude, message.longitude)
+       );
+    }
   });
 
   socket.on('join', (params, callback) => {
@@ -42,11 +54,6 @@ io.on('connection', (socket) => {
     socket.emit('newMessage', generateMessage('Admin',`Welcome to ${params.room} room`));
     socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`));
     callback();
-  });
-
-  socket.on('createLocationMessage', (message) => {
-    io.emit('newLocationMessage',
-      generateLocationMessage('User', message.latitude, message.longitude));
   });
 
   socket.on('disconnect', () => {

@@ -26,7 +26,7 @@
    });
 
     socket.on('disconnect', () => {
-      console.log('Disconnected from server');
+      console.log('Disconnected');
     });
 
     socket.on('updateUserList', (users) => {
